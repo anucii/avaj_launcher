@@ -2,15 +2,29 @@ package fr._42lyon.avaj.simulator;
 
 public class Simulator {
 	public static void main(String[] args) {
-		if (!checkArgs(args)) {
-			displayHelp();
+		try {
+			ScenarioParser parser;
+			Scenario scenario;
+
+			if (!checkArgs(args)) {
+				displayHelp();
+				return ;
+			}
+			parser = new ScenarioParser(args[0]);
+			scenario = parser.getScenario();
 			return;
+			
 		}
-		return;
+		catch (ScenarioException se) {
+			System.out.println(se.getMessage());
+		} 
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void displayHelp() {
-		String message = "Usage:\n$ fr._42lyon.avaj.simulator.Simulator <scenario file>";
+		String message = "Usage:\n$ java fr._42lyon.avaj.simulator.Simulator <scenario file>";
 		System.out.println(message);
 	}
 
@@ -18,6 +32,6 @@ public class Simulator {
 		if (args.length != 1) {
 			return false;
 		}
-		return ScenarioParser.test(args[0]);
+		return true;
 	}
 }
