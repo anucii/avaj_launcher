@@ -2,14 +2,16 @@ package fr._42lyon.avaj.simulator;
 
 import java.util.HashSet;
 
+import fr._42lyon.avaj.aircraft.AircraftCreationData;
+
 class Scenario {
 	
 	private int changesCount;
-	private HashSet<Object> aircraftCreationData;
+	private HashSet<AircraftCreationData> aircraftCreationData;
 
 	public Scenario() {
 		super();
-		setAircraftCreationData(new HashSet<Object>());
+		setAircraftCreationData(new HashSet<AircraftCreationData>());
 	}
 
 	public int getChangesCount() {
@@ -18,12 +20,18 @@ class Scenario {
 
 	public void setChangesCount(String value) throws ScenarioException {
 		try {
-			changesCount = Integer.parseInt(value);
+			changesCount = Integer.parseInt(value.trim());
 		} catch (NumberFormatException e) {
 			String message = String
 			.format("The scenario's first line should contain an integer (illicit value : %s)", value);
 			throw new ScenarioException(message, e);
 		}
+	}
+
+	public void recordAircraftCreationLine(String value) throws ScenarioException {
+			
+		AircraftCreationData lineData = new AircraftCreationData(value);
+		aircraftCreationData.add(lineData);
 	}
 
 	public void checkAircraftsExistence() throws ScenarioException {
@@ -33,11 +41,11 @@ class Scenario {
 		}
 	}
 
-	private void setAircraftCreationData(HashSet<Object> collection) {
+	private void setAircraftCreationData(HashSet<AircraftCreationData> collection) {
 		aircraftCreationData = collection;
 	}
 
-	public HashSet<Object> getAircraftCreationData() {
+	public HashSet<AircraftCreationData> getAircraftCreationData() {
 		return aircraftCreationData;
 	}
 	
