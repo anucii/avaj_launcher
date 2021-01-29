@@ -5,11 +5,11 @@ public class Coordinates {
 	private int longitude;
 	private int height;
 	
-	public Coordinates () {
+	Coordinates () {
 		super();
 	}
 
-	public Coordinates(int longitude, int latitude, int height) throws CoordinatesException {
+	Coordinates(int longitude, int latitude, int height) throws CoordinatesException {
 		this();
 		setLongitude(longitude);
 		setLatitude(latitude);
