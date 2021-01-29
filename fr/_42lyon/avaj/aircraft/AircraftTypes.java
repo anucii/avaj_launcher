@@ -1,30 +1,14 @@
 package fr._42lyon.avaj.aircraft;
 
 public enum AircraftTypes {
-	BALOON("baloon"),
-	JETPLANE("jetplane"),
-	HELICOPTER("helicopter");
+	BALOON,
+	JETPLANE,
+	HELICOPTER;
 
-	private String label;
-
-	private AircraftTypes(String label) {
-		setLabel(label);
-	}
-
-	public boolean fitsLabel(String value) {
+	public boolean matchesName(String value) {
 		if (value == null) {
 			return false;
 		}
-		return value.equalsIgnoreCase(label);
+		return name().equalsIgnoreCase(value);
 	}
-
-	private void setLabel(String value) {
-		label = value.toLowerCase();
-	}
-
-	@Override
-	public String toString() {
-		return label;
-	}
-
 }

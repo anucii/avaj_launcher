@@ -32,7 +32,7 @@ public class AircraftCreationData {
 		
 		AircraftTypes matchingType = null;
 		for (AircraftTypes item : AircraftTypes.values()) {
-			if (item.fitsLabel(aircraftType)){
+			if (item.matchesName(aircraftType)){
 				matchingType = item;
 				break ;
 			}
