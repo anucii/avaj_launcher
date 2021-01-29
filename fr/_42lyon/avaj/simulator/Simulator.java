@@ -4,20 +4,19 @@ import fr._42lyon.avaj.logger.Logger;
 import fr._42lyon.avaj.logger.LoggerException;
 
 public class Simulator {
+
+	private Scenario scenario;
+
 	public static void main(String[] args) {
 		try {
-			ScenarioParser parser;
-			Scenario scenario;
 
 			if (!checkArgs(args)) {
 				displayHelp();
 				return ;
 			}
 			Logger.initialize();
-			parser = new ScenarioParser(args[0]);
-			scenario = parser.getScenario();
-			return;
-			
+			Simulator simulator = new Simulator(args[0]);
+			simulator.run();			
 		}
 		catch (LoggerException le) {
 			System.out.println(le.getMessage());
@@ -40,5 +39,17 @@ public class Simulator {
 			return false;
 		}
 		return true;
+	}
+
+	private Simulator(String scenarioPath) throws ScenarioException {
+		
+		ScenarioParser parser;
+
+		parser = new ScenarioParser(scenarioPath);
+		scenario = parser.getScenario();
+	}
+
+	private void run() throws LoggerException {
+		Logger.getInstance().addMessage("DBG : simulation now running"); // TODO remove dbg line
 	}
 }
