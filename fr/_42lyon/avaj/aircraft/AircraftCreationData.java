@@ -1,5 +1,8 @@
 package fr._42lyon.avaj.aircraft;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 import fr._42lyon.avaj.simulator.ScenarioException;
 
 public class AircraftCreationData {
@@ -39,10 +42,19 @@ public class AircraftCreationData {
 		}
 		if (matchingType == null) {
 			String message = String
-			.format("Wrong type: %s%nShould be one of %s", aircraftType, AircraftTypes.values());
+			.format("Wrong type: %s%nShould be one of %s", aircraftType, getAircraftAllNames());
 			throw new ScenarioException(message);
 		}
 		setAircraftType(matchingType);
+	}
+
+	private String getAircraftAllNames() {
+		var names = new ArrayList<String>();
+		for (AircraftTypes type : AircraftTypes.values()) {
+			names.add(type.name());
+		}
+		
+		return names.toString();
 	}
 
 	private void checkName(String name) throws ScenarioException {
