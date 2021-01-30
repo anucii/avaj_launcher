@@ -11,6 +11,7 @@ import fr._42lyon.avaj.logger.LoggerException;
 public abstract class Tower {
 
 	private Collection<Flyable> observers;
+	private Collection<Flyable> unregisteredObservers;
 
 	protected Tower() {
 		super();
@@ -26,17 +27,26 @@ public abstract class Tower {
 
 	public void unregister(Flyable flyable) throws TowerException, LoggerException {
 		checkObserversInitialisation();
-		observers.remove(flyable);
-		flyable.notifyUnregistration();
+		unregisteredObservers.add(flyable);
 	}
 
 	protected void conditionsChanged()
 			throws TowerException, AircraftException, WeatherException, LoggerException, CoordinatesException {
 		
 		checkObserversInitialisation();
+		unregisteredObservers = new HashSet<>();
 		for (Flyable item : observers) {
 			item.updateConditions();
 		}
+		removeUnregisteredObservers();
+	}
+
+	private void removeUnregisteredObservers() throws LoggerException {
+		for (Flyable flyable : unregisteredObservers) {
+			observers.remove(flyable);
+			flyable.notifyUnregistration();
+		}
+		unregisteredObservers = null;
 	}
 
 	private void checkObserversInitialisation() throws TowerException {
