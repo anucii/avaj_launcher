@@ -28,15 +28,15 @@ public class Coordinates {
 		return height;
 	}
 
-	private void setLongitude(int longitude) throws CoordinatesException {
+	public void setLongitude(int longitude) throws CoordinatesException {
 		this.longitude = checkedCoordinate(longitude);
 	}
 
-	private void setLatitude(int latitude) throws CoordinatesException {
+	public void setLatitude(int latitude) throws CoordinatesException {
 		this.latitude = checkedCoordinate(latitude);
 	}
 
-	private void setHeight(int height) throws CoordinatesException {
+	public void setHeight(int height) throws CoordinatesException {
 		int positiveHeight = checkedCoordinate(height);
 		this.height = positiveHeight <= 100 ? positiveHeight : 100;
 	}

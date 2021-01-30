@@ -6,10 +6,17 @@ public enum WeatherTypes {
 	FOG,
 	SNOW;
 
-	public boolean matchesName(String value) {
-		if (value == null) {
-			return false;
+	public static WeatherTypes getFromName(String name) throws WeatherException {
+		try {
+			return WeatherTypes.valueOf(name);
 		}
-		return name().equalsIgnoreCase(value);
+		catch (IllegalArgumentException ae) {
+			String message = String.format("Error : %s does not match with any existing weather type");
+			throw new WeatherException(message);
+		} 
+		catch (NullPointerException ne) {
+			String message = "Error : attempt to get weather type from null string.";
+			throw new WeatherException(message);
+		}
 	}
 }

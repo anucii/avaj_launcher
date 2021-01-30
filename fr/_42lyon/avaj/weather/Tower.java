@@ -3,10 +3,13 @@ package fr._42lyon.avaj.weather;
 import java.util.Collection;
 import java.util.HashSet;
 
+import fr._42lyon.avaj.aircraft.AircraftException;
+import fr._42lyon.avaj.aircraft.CoordinatesException;
 import fr._42lyon.avaj.aircraft.Flyable;
+import fr._42lyon.avaj.logger.LoggerException;
 
 public abstract class Tower {
-	
+
 	private Collection<Flyable> observers;
 
 	protected Tower() {
@@ -14,18 +17,21 @@ public abstract class Tower {
 		observers = new HashSet<>();
 	}
 
-	public void register(Flyable flyable) throws TowerException {
-		
+	public void register(Flyable flyable) throws TowerException, LoggerException {
+
 		checkObserversInitialisation();
 		observers.add(flyable);
+		flyable.notifyRegistration();
 	}
 
-	public void unregister(Flyable flyable) throws TowerException {
+	public void unregister(Flyable flyable) throws TowerException, LoggerException {
 		checkObserversInitialisation();
 		observers.remove(flyable);
+		flyable.notifyUnregistration();
 	}
 
-	protected void conditionsChanged() throws TowerException {
+	protected void conditionsChanged()
+			throws TowerException, AircraftException, WeatherException, LoggerException, CoordinatesException {
 		
 		checkObserversInitialisation();
 		for (Flyable item : observers) {
