@@ -1,13 +1,8 @@
 package fr._42lyon.avaj.logger;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.util.Arrays;
 
 public class Logger {
@@ -26,7 +21,7 @@ public class Logger {
 		try (FileWriter writer = new FileWriter(fileName)) {
 			writer.flush();
 			instance = new Logger();
-			instance.loggerPath = Path.of(fileName);
+			instance.loggerPath = Paths.get(fileName).toAbsolutePath();
 		} catch (IOException e) {
 			String message = String.format("Logger initialization failed.%nCause: %s", e.getMessage());
 			throw new LoggerException(message);

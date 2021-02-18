@@ -61,7 +61,7 @@ class ScenarioParser {
 	private File getFileFromFilePath(String filePath) throws ScenarioException {
 		String message;
 		
-		if ((filePath == null) || filePath.isBlank()) {
+		if ((filePath == null) || filePath.trim().isEmpty()) {
 			message = "Scenario file path missing.";
 			throw new ScenarioException(message);
 		}
@@ -80,6 +80,6 @@ class ScenarioParser {
 	}
 
 	static boolean test(String filePath) {
-		return !filePath.isBlank();
+		return !filePath.trim().isEmpty();
 	}
 }
